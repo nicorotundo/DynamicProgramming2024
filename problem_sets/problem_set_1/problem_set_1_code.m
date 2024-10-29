@@ -81,25 +81,25 @@ exportgraphics(gcf, '/Users/nicorotundo/Documents/GitHub/DynamicProgramming2024/
 %}
 
 % Time step (\triangle t)
-dt = 0.1;           
+dt = 10/99;
 
 % Number of time steps
-N = T / dt;          
+N = 100;          
 
 % Vector to store consumption values
-C_t_numeric = zeros(1, N);   
+C_t_numeric = zeros(N, 1);   
 
 % Set terminal consumption
 C_t_numeric(end) = C_T;
 
 % Time vector from 0 to T with 100 points
-t = linspace(1, T, N);
+t = linspace(0, T, N);
 
 % Time stepping using the finite difference method
 for n = N:-1:2
-    
+
     % Compute consumption at the next time step using backward difference
-    C_t_numeric(n-1) = (theta - dt*(r_0 + alpha*n-rho))/theta * C_t_numeric(n);
+   C_t_numeric(n-1) = (theta - dt*(r_0 + alpha*t(n)-rho))/theta * C_t_numeric(n);
 
 end
 
@@ -122,12 +122,12 @@ figure;
     hold on;
 
     % Plot numerical solution
-    plot(t, C_t_numeric, 'LineWidth', 2, 'Color', [250/255, 165/255, 35/255]);
+    plot(t, C_t_numeric, 'bo--', 'LineWidth', 2, 'Color', [250/255, 165/255, 35/255]);
 
     % Add labels and title
     xlabel('Time (t)');
     ylabel('Consumption C(t)');
-    title('Analytical vs Numerical Solutions of C(t) over Time');
+    title('Analytical vs Numerical Solutions of C(t) over Time; 100 Time Steps');
 
     % Add a legend
     legend({'Analytical Solution', 'Numerical Solution'}, 'Location', 'southeast');
@@ -150,25 +150,25 @@ exportgraphics(gcf, '/Users/nicorotundo/Documents/GitHub/DynamicProgramming2024/
 %}
 
 % Time step (\triangle t)
-dt = 1;           
+dt = 10/9;
 
 % Number of time steps
-N = T / dt;          
+N = 10;           
 
 % Vector to store consumption values
-C_t_numeric = zeros(1, N);   
+C_t_numeric = zeros(N, 1);   
 
 % Set terminal consumption
 C_t_numeric(end) = C_T;
 
-% Time vector from 0 to T with 100 points
-t_10 = linspace(1, T, N);
+% Time vector from 0 to T with 10 points
+t_10 = linspace(0, T, N);
 
 % Time stepping using the finite difference method
 for n = N:-1:2
     
     % Compute consumption at the next time step using backward difference
-    C_t_numeric(n-1) = (theta - dt*(r_0 + alpha*n-rho))/theta * C_t_numeric(n);
+    C_t_numeric(n-1) = (theta - dt*(r_0 + alpha*t_10(n)-rho))/theta * C_t_numeric(n);
 
 end
 
@@ -181,12 +181,12 @@ figure;
     hold on;
 
     % Plot numerical solution
-    plot(t_10, C_t_numeric, 'LineWidth', 2, 'Color', [250/255, 165/255, 35/255]);
+    plot(t_10, C_t_numeric, 'bo--','LineWidth', 2, 'Color', [250/255, 165/255, 35/255]);
 
     % Add labels and title
     xlabel('Time (t)');
     ylabel('Consumption C(t)');
-    title('Analytical vs Numerical Solutions of C(t) over Time');
+    title('Analytical vs Numerical Solutions of C(t) over Time; 10 Time Steps');
 
     % Add a legend
     legend({'Analytical Solution', 'Numerical Solution'}, 'Location', 'southeast');

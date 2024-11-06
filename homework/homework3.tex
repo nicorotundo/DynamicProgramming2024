@@ -100,18 +100,33 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section*{Problem 1}
+\section*{Problem 1: Brownian Motion}
 
-This problem collects several exercises on Brownian motion and stochastic calculus.
+This problem collects several exercises on Brownian motion and stochastic calculus. We denote standard Brownian motion by $B_t$.
 
 \begin{enumerate}[(a)]
+
 \item Show that $\mathbb Cov(B_s, B_t) = \min\{s, t\}$ for two times $0 \leq s < t$. Use the following tricks: Use the covariance formula $\mathbb Cov(A, B) = \mathbb E (AB) - \mathbb E(A) \mathbb E(B)$. Use $B_t \sim \mathcal N(0, t)$ as well as $B_t - B_s \sim \mathcal N(0, t-s)$. And use $B_t = B_s + (B_t - B_s)$.
 
-\item Geometric Brownian motion evolves as: $dX_t = \mu X_t dt + \sigma X_t dB_t$. Show that
+
+\item Let $X_t = B_t^2$. What is $\mathbb E X_t$? What is $\mathbb Cov (X_t, X_s)$?
+
+
+\item Let $X_t = B_{t+s} - B_s$ for some fixed $s > 0$. Let $Y_t = \frac{1}{\sqrt \lambda} B_{\lambda t}$. Show that both $X_t$ and $Y_t$ are standard Brownian motion; that is, show the following 5 properties: 
+\begin{enumerate}[(i)]
+\item $X_0 = Y_0 = 0$ 
+\item $X_t, Y_t \sim \mathcal N(0, t)$ 
+\item Stationarity
+\item Independent increments 
+\item Continuous 
+\end{enumerate}
+
+
+\item Geometric Brownian motion evolves as: $dX_t = \mu X_t dt + \sigma X_t dB_t$ given an initial value $X_0$. Show that
 \begin{equation*}
-	X_t = X_0 e^{\mu t - \frac{\sigma^2}{2} t + \sigma B_t}
+	X_t = X_0 e^{\mu t - \frac{\sigma^2}{2} t + \sigma B_t}.
 \end{equation*}
-for a given initial value $X_0$.
+
 
 \item For Geometric Brownian motion as defined above, show that $\mathbb E = X_0 e^{\mu t}$.
 
@@ -119,124 +134,216 @@ for a given initial value $X_0$.
 \begin{equation*}
 	X_t = X_0 e^{- \mu t} + \sigma \int_0^t e^{-\mu(t - s)} dB_s.
 \end{equation*}
+
+\item Let $X_t = \int_0^t B_s ds$ and $Y_t = \int_0^t B_s^2 ds$. Compute $\mathbb E(X_t)$ and $\mathbb E(Y_t)$, as well as $\mathbb Var(X_t)$ and $\mathbb Var(Y_t)$. 
 \end{enumerate}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\vspace{10mm}
-\section*{Problem 3: heuristic proof of Ito's lemma **}
-
-\textbf{Credit:} derivation follows David Laibson's class notes. For a more formal treatment, see especially Oksendal. 
-
 \vspace{5mm}
-\noindent
-Consider a pretty general Ito process
-\begin{equation*}
-	dx = a(x, t) dt + b(x, t) dB,
-\end{equation*}
-where $dB$ is standard Brownian motion. We call $a(\cdot)$ the drift and $b(\cdot)$ the diffusion coefficients. Suppose $x(t)$ describes the price of oil (or the stock market) over time. Let's denote by $V(x, t)$ the \textit{value} of an oil well (or a particular portfolio) at time $t$, given the value of oil. 
-
-We would like to characterize how $V(x, t)$ evolves over time. If there was no uncertainty, we would just take a time derivative and have $\frac{d}{dt} V(x, t) = \partial_t V(x, t) + \partial_x V(x, t) \frac{dx}{dt}$ by the chain rule. With uncertainty, we will have one additional term. 
-
-\begin{prop}
-	Ito's lemma: We have 
-	\begin{align*}
-		dV &= \partial_t V dt + \partial_x V dx + \frac{1}{2} \partial_{xx} V b(x, t)^2 dt \\
-		&= \bigg[ \partial_t V + \partial_x V a(x, t) + \frac{1}{2} \partial_{xx} V b(x, t)^2\bigg] dt + \partial_x V b(x, t) dB.
-	\end{align*}
-\end{prop}
-
-\vspace{5mm}
-\noindent
-We will now work through a heuristic proof.
-\begin{enumerate}
-\item Consider the function $V(x, t)$ and take a Taylor expansion.
-
-\item Use the fact that terms of order $(dt)^\frac{3}{2}$ become really small in continuous time and ``drop out''. Show that $dx dt$ drops out. What are we left with
-
-\item Plug in for $dx$ and $(dx)^2$ and arrive at Ito's lemma. Use $(dB)^2 \sim dt$.
-
-\end{enumerate}
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\vspace{10mm}
-\section*{Problem 4: more practice with Ito's lemma ** (Canonical)}
-
-Take the setting from above where we try to model the value of an oil well. Suppose that 
-\begin{equation*}
-	V(x, t) = \log(x).
-\end{equation*}
-
-\begin{enumerate}
-\item Derive $V'(x)$ and $V''(x)$. Why do we need them? Why are we suddenly working with ordinary derivative terms rather than partial derivatives? 
-
-\item Suppose $dx = \alpha x dt + \sigma x dB$. Plug into Ito's Lemma.
-
-\item Plug in for $V'(x)$ and $V''(x)$ and arrive at the solution for $dV$. 
-
-\item Notice that $\mathbb E[ dV ] = \alpha - \frac{1}{2} \sigma^2$ because $\mathbb E (dB) = 0$. Interpret this. Why is the drift of $V$ less than $\alpha$ even thow the drift of the oil price is $\alpha$? (Hint: What is the important economic property of log preferences that we care about here?)
-
-\end{enumerate}
-
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\vspace{10mm}
-\section*{Problem 5: let's derive the HJB **}
-
-Let $u(x, c, t)$ denote the instantaneous utility flow of an agent. $x$ is a state variable and $c$ is the control variable. For the state variable $x$, assume the same Ito process as above. In the continuous time limit with $\Delta t$ time steps, let $x' = x + \Delta x$ and $t' = t + \Delta t$.
-
-\begin{enumerate}
-\item Write down the discrete-time Bellman equation with $\Delta t$ time steps. Explain each term where a $\Delta t$ shows up. 
-
-\item Multiply by $(1 + \rho \Delta t)$ and simplify terms to arrive at an expression $\rho V \Delta t = \ldots$. 
-
-\item Divide by $\Delta t$. Then take the continuous time limit $\Delta t \to dt$ and notice that $(dt)^2 \approx 0$. 
-
-\item Use Ito's lemma to rewrite $\mathbb E[dV]$ as 
-\begin{equation*}
-	\mathbb E[dV] = \bigg[ \partial_t V + \partial_x V a + \frac{1}{2} \partial_{xx} V b^2 \bigg] dt.
-\end{equation*}
-We have now derived the HJB equation with risk:
-\begin{equation*}
-		\rho V(x, t) = \max_c \bigg\{ u(x, c, t) + \partial_t V + a \partial_x V + \frac{b^2}{2} \partial_{xx} V \bigg\}
-\end{equation*}
-
-\end{enumerate}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\vspace{10mm}
-\section*{Problem 1: XXX}
+\section*{Problem 2: Poisson Process}
 
 \begin{enumerate}[(a)]
-\item 
+\item Consider a two-state Markov chain in continuous time denoted $Y_t$, which can take on values in $\{Y^1, Y^2\}$. The transition rate is given by $\lambda$ regardless of the current state. Suppose we are in state $1$ at $t = 0$. Compute the expected time until the process switches to state $2$. 
+
+\item Now suppose that the transition rates differ depending on which state we are in. That is, if we're in state $1$ we transition to rate $2$ at rate $\lambda_1$, and vice versa at rate $\lambda_2$. Show that the fraction of time the process spends in states $1$ and $2$ converges in the long run to $\frac{\lambda_2}{\lambda_1 + \lambda_2}$ and $\frac{\lambda_1}{\lambda_1 + \lambda_2}$. 
+
+\item What is $\mathbb E (Y_t \mid Y_0 = Y^1)$?
 
 \end{enumerate}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\vspace{10mm}
-\section*{Problem 2: XXX}
-
-XXX
+\vspace{5mm}
+\section*{Problem 3: Ito's Lemma}
 
 \begin{enumerate}[(a)]
-\item 
+\item Let $dX_t = - \alpha X_t dt + \sigma dB_t$, and $f(t, X_t) = e^{\alpha t} X_t$. Show that $df = \sigma e^{\alpha t} d B$. 
+
+\item Consider the capital accumulation equation $dK_t = (\iota - \delta) K_t dt + \sigma K_t dB_t$, where $\iota$ is the investment rate. Suppose our value function is $V(K_t)$. Use Ito's lemma to solve for $dV_t$.   
+
+\item Suppose $X_t = f(t, B_t)$ for some function $f$. In this problem, we will solve for $f$. The only information we have is that 
+\begin{equation*}
+	dX_t = X_t dB_t.
+\end{equation*}
+Use Ito's lemma to derive two conditions on the partial derivatives of $f(\cdot)$. (That is, group the $dt$ and $dB$ terms and reason via coefficient-matching.) Show that the function $f(t, x) = e^{x - \frac{1}{2}t}$ satisfies these conditions. 
+\end{enumerate}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\vspace{5mm}
+\section*{Problem 4: Generator}
+
+We defined the generator of a stochastic process in class. The generator is extremely useful when we want to quickly write down the HJB associated with a dynamic optimization problem. 
+
+\vspace{4mm}
+\begin{enumerate}[(a)]
+\item Consider the wealth and income processes 
+\begin{align*}
+	da_t &= (ra_t + y_t - c_t)dt + \sigma dB_t \\
+	dy_t &= \theta (\bar y - y_t) dt + \nu W_t
+\end{align*}
+where $B_t$ and $W_t$ are independent standard Brownian motion. Write down the generator $\mathcal A$ for the two-dimensional process
+\begin{equation*}
+	\begin{pmatrix}
+		d a_t \\
+		d y_t 
+	\end{pmatrix}
+\end{equation*}
+That is, what is $\mathcal A V$ for a given (smooth) function $V(a_t, y_t)$?
+
+\item Consider the capital accumulation process
+\begin{align*}
+	dk_t &= (\iota - \delta) k_t dt. 
+\end{align*}
+Also suppose that firm technology $A_t$ follows a two-state Markov chain (Poisson process) with transition rates $\lambda$. That is, $A_t$ can take on values in $\{A^1, A^2\}$. Suppose that the enterprise value of the firm is given by some function $V(k_t, A_t)$. Characterize the generator of the process
+\begin{equation*}
+	\begin{pmatrix}
+		d k_t \\
+		d A_t 
+	\end{pmatrix}
+\end{equation*}
+That is, what is $\mathcal A V$ for a given (smooth) function $V(k_t, A_t)$? (Recall that $\mathcal A V = \mathbb E[d V]$, so the expression you just solved for tells us how the firm's enterprise value evolves in expectation.)
 
 \end{enumerate}
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\vspace{5mm}
+\section*{Problem 5: Consumption with Income Uncertainty}
+
+Consider a household whose lifetime utility is given by 
+\begin{equation*}
+	V_0 = \max_{ \{c_t\} } \, \mathbb E_0 \int_0^\infty e^{- \rho t} u(c_t) dt.
+\end{equation*}
+The household makes consumption-savings decisions facing the budget constraint 
+\begin{equation*}
+	da_t = r a_t + y_t - c_t.
+\end{equation*}
+Here, $y_t$ is the household's income process. We cannot perfectly forecast our future income, so we will assume that $y_t$ is a stochastic process. Below, you will be asked to write down the HJB associated with this problem for the two canonical models of income uncertainty.
+
+\vspace{4mm}
+\begin{enumerate}[(a)]
+\item Suppose that income follows the diffusion (Ornstein-Uhlenbeck / AR1) process
+\begin{equation*}
+	dy_t = \theta(\bar y - y_t) dt + \sigma dB_t.
+\end{equation*}
+Write down the HJB for this problem that characterizes the household value function $V(a, y)$. 
+
+\item Now suppose that income follows a two-state Markov chain (Poisson process). Income can be high or low, $\in \{y^L, y^H\}$. The transition rate from high to low is $\lambda^H$ and the transition rate from low to high is $\lambda^L$. Write down the HJB for this problem that characterizes the household value function $V(a, y)$. 
+
+\item Suppose that the interest rate is not constant but varies over time. We know with certainty, however, how the interest rate evolves. So $\{r_t\}$ is a deterministic sequence that is exogenously given to us. (In other words, we are characterizing the household problem in partial equilibrium; the household takes the interest rate as given.) Write down the HJB for this problem that characterizes the household value function $V(t, a, y)$. Why is this value function no longer stationary?
+
+\end{enumerate}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \vspace{5mm}
+% \section*{Problem 6: Job Market Paper}
+% 
+% Imagine you were a graduate student in economics, and you are currently searching for and working on what will hopefully become your job market paper. You have to go on the job market at date $T$ (it is currently date $t = 0$). Your objective is to maximize  
+% \begin{equation*}
+% 	V_0 = \max \, \mathbb E_0 \bigg[ - \int_0^T v(\ell_t) dt + x_T \bigg]. 
+% \end{equation*}
+% Here, $\ell_t$ is your rate of work (think: total hours you work in a day), and $v(\cdot)$ encodes the disutility you get from working. You can spend your working time on one of two activities: either you search for a new project to work on ($s_t$) or you continue working on your current project ($w_t$), facing the budget constraint
+% \begin{equation*}
+% 	\ell_t = s_t + w_t.
+% \end{equation*}
+% 
+% 
+% \vspace{4mm}
+% \begin{enumerate}[(a)]
+% \item Suppose that income follows the diffusion (Ornstein-Uhlenbeck / AR1) process
+% 
+% \end{enumerate}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\vspace{5mm}
+\section*{Problem 6: Consumption and Portfolio Choice}
+
+Consider a household that can trade two assets. The first asset is a stock. Stocks trade at price $Q_t$ and they pay the holder dividends at rate $D_t$. That is, when you hold the stock, your ``return'' comprises both the dividend payouts and the change in price until you sell the stock, which may be positive or negative. Formally, the rate of return on the stock is 
+\begin{equation*}
+	dR = \frac{D dt + dQ}{Q}, 
+\end{equation*}
+where $\frac{D}{Q}$ is the dividend-price ratio and $\frac{dQ}{Q}$ is capital gains (change in price). We will now assume that the return process takes the form  
+\begin{equation*}
+	d R = \mu dt + \sigma dB.
+\end{equation*}
+for some $\mu$ and $\sigma$, where $B$ is standard Brownian motion. 
+
+
+The second asset the household can trade is a bond, which trades at price $P$. And we assume that the bond price evolves simply according to 
+\begin{equation*}
+	\frac{dP}{P} = r dt,
+\end{equation*}
+which is the same as saying that holding the bond earns a riskfree rate of return $r dt$. Crucially, the household can both buy and sell these assets. Assume there are no borrowing (or short-sale) constraints. 
+
+The household's lifetime value is given by
+\begin{equation*}
+	V_0 = \max \mathbb E_0 \int_0^\infty e^{- \rho t} u(c_t) dt.
+\end{equation*}
+Let's denote by $b_t$ and $k_t$ the household's bond and stock holdings. Then the household budget constraint is 
+\begin{equation*}
+	Q dk + P db + c dt = D k dt. 
+\end{equation*}
+Why does the budget constraint take this form? On the RHS, households earn dividends at rate $D$ for each unit of stock they hold. On the LHS, households can spend on consumption, or they can choose to purchase stocks or bonds. If $dk > 0$, the household purchases new stocks at price $Q$ on top of the current stock holdings. If $dk < 0$, the household sells stocks. 
+
+
+We now define \textit{net worth} $n$ and the \textit{risky portfolio share} $\theta$ implicity via 
+\begin{align*}
+	\theta n &= Q k \\
+	(1-\theta) n &= Pb
+\end{align*}
+In other words, $n$ is a notion of total wealth of the household. And we say that the household invests fraction $\theta$ of total wealth in stocks, and fraction $1-\theta$ in bonds.  
+
+
+\vspace{5mm}
+\begin{enumerate}[(a)]
+\item Derive the law of motion for household net worth and show that it satisfies:
+\begin{equation*}
+	dn = \bigg[ r n + \theta n \Big( \mu - r \Big) - c \bigg] dt + \theta n \sigma dB
+\end{equation*}
+
+\item Derive the recursive representation of the households optimization problem. That is, write down the HJB equation that characterizes the household value function $V(n)$. Why was it useful to rewrite the household problem in terms of net worth (rather than stock and bond holdings)? Why is this value function stationary?
+
+\item Derive the first-order conditions for $c$ and the portfolio share $\theta$.
+
+\item Derive the Euler equation for marginal utility and show that it satisfies 
+\begin{equation*}
+	\frac{du_c}{u_c} = (\rho - r) dt - \frac{\mu - r}{\sigma} dB.
+\end{equation*}
+Notice that with CRRA utility, this implies a consumption Euler equation 
+\begin{equation*}
+	\frac{dc}{c} = \frac{r - \rho}{\gamma} dt + \frac{1+\gamma}{2} \bigg( \frac{\mu - r}{\gamma \sigma} \bigg)^2 dt + \frac{\mu - r}{\gamma \sigma} dB.
+\end{equation*}
+You don't have to derive this (but you can try). 
+
+
+\item Guess and verify that 
+\begin{equation*}
+	V(n) = \frac{1}{1-\gamma} \kappa^{-\gamma} n^{1-\gamma}
+\end{equation*}
+where $\kappa = \frac{1}{\gamma} \Big[ \rho - (1-\gamma)r - \frac{1-\gamma}{2\gamma} \Big( \frac{\mu-r}{\sigma} \Big)^2 \Big]$. 
+
+
+\item Given the solution for $V(n)$, use the FOCs to also solve for $c(n)$ and $\theta(n)$. You have now solved the household portfolio choice problem in closed form!!
+
+
+\item What does this model tell us? Consider the interesting special case of log utility with $\gamma = 1$. Show that consumption collapses to $c = \rho n$. This implies that you want to consume a constant fraction $\rho$ of lifetime net worth. But how much should you invest in the stock market according to this model? Take the formula for $\theta$ and plug in log utility. Let's assume an equity premium of $6\%$, so $\mu-r = 0.0.06$. And let's assume volatility of stock returns of $16\%$, so $\sigma = 0.16$. Solve for the numeric value of $\theta$, i.e., the fraction of your total wealth that this model tells you to invest in the stock market. Is this high or low? What if ``total wealth'' also includes a notion of your human capital?
+
+\end{enumerate}
 
 \end{document}
 

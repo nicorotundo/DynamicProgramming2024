@@ -1,0 +1,195 @@
+\documentclass[11pt]{extarticle}
+\usepackage{fullpage,amsmath,amsfonts,microtype,nicefrac,amssymb, amsthm}
+\usepackage[left=1in, bottom=1in, top=1in, right = 1in]{geometry}
+\usepackage{textcomp}
+\usepackage{mathpazo}
+\usepackage{mathrsfs}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+
+\usepackage{microtype}
+
+\usepackage{bm}
+\usepackage{dsfont}
+\usepackage{enumerate}
+\usepackage{ragged2e}
+
+\setlength{\parindent}{24pt}
+\setlength{\jot}{8pt}
+
+
+\usepackage[shortlabels]{enumitem}
+
+
+%% FOOTNOTES
+\usepackage[bottom]{footmisc}
+\usepackage{footnotebackref}
+
+
+%% FIGURE ENVIRONMENT
+%\graphicspath{{}}
+\usepackage[margin=15pt, font=small, labelfont={bf}, labelsep=period]{caption}
+\usepackage{subcaption}
+\captionsetup[figure]{name={Figure}, position=above}
+\usepackage{float}
+\usepackage{epstopdf}
+
+
+%% NEW COMMANDS
+\renewcommand{\baselinestretch}{1.25} 
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\indep}{\mathrel{\text{\scalebox{1.07}{$\perp\mkern-10mu\perp$}}}}
+\renewcommand{\b}{\begin}
+\newcommand{\e}{\end}
+
+%% NEWTHEOREM
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{ex}[thm]{Example}
+\newtheorem{remark}[thm]{Remark}
+\newtheorem{cor}[thm]{Corollary}
+
+%% LINKS and COLORS
+\usepackage[dvipsnames]{xcolor}
+\usepackage{hyperref}
+\definecolor{myred}{RGB}{163, 32, 45}
+\hypersetup{
+	%backref=true,
+	%pagebackref=true,
+	colorlinks=true,
+	urlcolor=myred,
+	citecolor=myred, 
+	linktoc=all,     
+	linkcolor=myred,
+}
+
+%% TABLE OF CONTENTS
+\addto\captionsenglish{
+	\renewcommand{\contentsname}
+	{}% This removes the heading over the table of contents.
+}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%            END PREAMBLE           %%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{202A: Dynamic Programming and Applications\\[5pt] {\Large \textbf{Homework \#5}}}
+
+\author{Andreas Schaab\footnote{
+	UC Berkeley. Email: schaab@berkeley.edu.\\
+	This course builds on the excellent teaching material developed, in particular, by David Laibson and Benjamin Moll. I would also like to thank Gabriel Chodorow-Reich, Pablo Kurlat, J\'on Steinsson, and Gianluca Violante, as well as QuantEcon, on whose teaching material I have drawn. 
+}}
+
+\date{}
+
+
+\begin{document}
+
+\maketitle
+
+The theoretical part of this Homework is very short. In Problem 1, you will set up the model of Aiyagari (1994) in continuous time and define its competitive equilibrium. In the numerical part of the Homework, you will then write code to solve this model numerically. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Problem 1: Aiyagari (1994)}
+
+Time is continuous, $t \in [0, \infty)$, and there is no aggregate uncertainty. We allow for one-time, unanticipated (``MIT'') shocks to TFP (agents have perfect foresight with respect to this aggregate shock). Concretely, we denote by $A_t$ the TFP of the economy at date $t$, and $\{A_t\}$ is an exogenously given but deterministic sequence. 
+
+
+\paragraph{Households.}
+The economy is populated by a continuum of measure one of households. Consider a household $i \in [0, 1]$. Household $i$'s preferences are encoded in her lifetime utility  
+\begin{equation*}
+	V_{i, 0} = \max_{ \{c_{i, t}\}_{t \geq 0} } \; \mathbb E_0 \int_0^\infty e^{- \rho t} u(c_{i, t}) dt.
+\end{equation*}
+
+
+The economy features a single asset---capital. Households are the owners of capital and rent it to firms. Denote the stock of capital owned by household $i$ at date $t$ by $k_{i, t}$. The household faces the budget constraints  
+\begin{align*}
+	c_{i, t} + i_{i, t} &= z_{i, t} w_t + r_t^k k_{i, t} \\
+	\dot k_{i, t} &= i_{i, t} - \delta k_{i, t} .
+\end{align*}
+The first line of the budget constraint says that household expenditures---consumption and investment---must equal her income. Income comprises labor income and income from renting capital to firms at rate $r_t^k$. We assume that households supply one unit of labor inelastically, earning wage rate $w_t$. But households also face idiosyncratic earnings risk: $z_{i, t}$ denotes the household's idiosyncratic labor productivity, and the wage $w_t$ is paid on efficiency units of work, rather than hours of work. We assume that $z_{i, t}$ follows a two-state Markov chain, with individual labor productivity taking on values in $\in  \{z^L, z^H\}$. You may interpret $z^L$ as unemployment and $z^H$ as employment. Households transition between these dates at transition rates $\lambda$ (symmetric for simplicity). 
+
+
+The second line summarizes the household's capital accumulation technology. Putting these two equations together, the household's stock of capital evolves simply as  
+\begin{equation*}
+	\dot k_{i, t} = r_t k_{i, t} + z_{i, t} w_t - c_{i, t},
+\end{equation*}
+where we denote by $r_t$ the effective real rate of return on owning capital. Finally, we assume that households also face a short-sale constraint on capital
+\begin{equation*}
+	k_{i, t} \geq 0.
+\end{equation*}
+
+
+\begin{enumerate}
+\item [(a)] Write down household $i$'s problem in sequence form. 
+
+\item [(b)] Next, we characterize a recursive representation for the household problem. In terms of which state variables will we be able to derive a recursive representation? Write down the HJB for this problem. Is the HJB stationary---why or why not? Why are we now dropping the $i$ subscript when writing down this recursive representation of the household problem?
+
+\item [(c)] Where in the HJB does the short-sale constraint show up? Write down the explicit condition for this. 
+
+\item [(d)] Take the first-order condition.
+\end{enumerate}
+
+
+\paragraph{Aggregation.}
+We denote by $g_t(k, z)$ the joint density of households over capital and individual labor productivities at date $t$. 
+
+\begin{enumerate}
+\item [(e)] Write down the Kolmogorov forward equation for $g_t(k, z)$. 
+\end{enumerate}
+
+
+\paragraph{Firms.}
+There is a representative firm that operates the production technology 
+\begin{equation*}
+	Y_t = A_t K_t^\alpha L_t^{1-\alpha},
+\end{equation*}
+where the deterministic sequence $\{A_t\}$ denotes TFP. The firm maximizes profit $Y_t - w_t L_t - r_t^k K_t$. We use capital letters here to signify that $K_t$ and $L_t$ denote aggregate capital and labor. 
+
+
+\begin{enumerate}
+	\item [(f)] Write down the firm problem and take first-order conditions. This should yield two conditions for factor prices $w_t$ and $r_t^k$. Why are the implied profits zero? 
+\end{enumerate}
+
+
+\paragraph{Markets and equilibrium.}
+
+
+\begin{enumerate}
+\item [(g)] Which markets have to clear in equilibrium? Write down each market clearing condition.
+
+\item [(h)] Define (recursive) competitive equilibrium. 
+
+\item [(i)] Explicitly write down the system of equations that competitive equilibrium characterizes. Convince yourself that you have account for $\{c_t(k, z), V_t(k, z), g_t(k, z), Y_t, L_t, K_t\}_{t \geq 0}$ and $\{r_t, r_t^k, w_t\}_{t \geq 0}$. 
+
+\item [(j)] Define stationary competitive equilibrium. Dropping time subscripts to denote allocation and prices in steady state, make sure you have accounted for $\{c(k, z), V(k, z), g(k, z), Y, L, K\}$ and $\{r, r^k, w\}$. 
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

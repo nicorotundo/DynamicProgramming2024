@@ -122,18 +122,9 @@ This problem collects several exercises on Brownian motion and stochastic calcul
 \end{enumerate}
 
 
-\item Geometric Brownian motion evolves as: $dX_t = \mu X_t dt + \sigma X_t dB_t$ given an initial value $X_0$. Show that
-\begin{equation*}
-	X_t = X_0 e^{\mu t - \frac{\sigma^2}{2} t + \sigma B_t}.
-\end{equation*}
+\item Geometric Brownian motion evolves as: $dX_t = \mu X_t dt + \sigma X_t dB_t$ given an initial value $X_0$. Show that $X_t = X_0 e^{\mu t - \frac{\sigma^2}{2} t + \sigma B_t}$. Also show that $\mathbb E = X_0 e^{\mu t}$.
 
-
-\item For Geometric Brownian motion as defined above, show that $\mathbb E = X_0 e^{\mu t}$.
-
-\item The Ornstein-Uhlenbeck (OU) process is like a continuous-time variant of the AR(1) process. It evolves as $dX_t = - \mu X_t dt + \sigma dB_t$ for drift parameter $\mu$, diffusion parameter $\sigma$, and some $X$. Show that it solves 
-\begin{equation*}
-	X_t = X_0 e^{- \mu t} + \sigma \int_0^t e^{-\mu(t - s)} dB_s.
-\end{equation*}
+\item The Ornstein-Uhlenbeck (OU) process is like a continuous-time variant of the AR(1) process. It evolves as $dX_t = - \mu X_t dt + \sigma dB_t$ for drift parameter $\mu$, diffusion parameter $\sigma$, and some $X$. Show that it solves $X_t = X_0 e^{- \mu t} + \sigma \int_0^t e^{-\mu(t - s)} dB_s$.
 
 \item Let $X_t = \int_0^t B_s ds$ and $Y_t = \int_0^t B_s^2 ds$. Compute $\mathbb E(X_t)$ and $\mathbb E(Y_t)$, as well as $\mathbb Var(X_t)$ and $\mathbb Var(Y_t)$. 
 \end{enumerate}
@@ -320,15 +311,14 @@ In other words, $n$ is a notion of total wealth of the household. And we say tha
 
 \item Derive the first-order conditions for $c$ and the portfolio share $\theta$.
 
-\item Derive the Euler equation for marginal utility and show that it satisfies 
+\item \textit{Optional and more difficult}: Derive the Euler equation for marginal utility and show that it satisfies 
 \begin{equation*}
 	\frac{du_c}{u_c} = (\rho - r) dt - \frac{\mu - r}{\sigma} dB.
 \end{equation*}
-Notice that with CRRA utility, this implies a consumption Euler equation 
+Show that with CRRA utility, this implies a consumption Euler equation 
 \begin{equation*}
 	\frac{dc}{c} = \frac{r - \rho}{\gamma} dt + \frac{1+\gamma}{2} \bigg( \frac{\mu - r}{\gamma \sigma} \bigg)^2 dt + \frac{\mu - r}{\gamma \sigma} dB.
 \end{equation*}
-You don't have to derive this (but you can try). 
 
 
 \item Guess and verify that 

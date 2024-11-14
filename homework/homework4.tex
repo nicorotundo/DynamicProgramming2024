@@ -240,101 +240,27 @@ Consider a household with preferences
 \end{equation*}
 There is no uncertainty. The household budget constraint is given by
 \begin{equation*}
-	da_t = r_t a_t + w_t - c_t. 
+	da_t = r_t a_t + y_t - c_t. 
 \end{equation*}
-Aggregate prices follow a deterministic process, $\bm{r} = \{r_t\}$ and $\bm{w} = \{w_t\}$. Finally, the household starts with an initial wealth position $a_0$, and wealth is the only state variable. 
-
-The next Lemma derives more formally the steps we have already been using in the lectures and psets.
-
-
-\vspace{5mm}
-\noindent
-\textbf{Step \#1: Lifetime budget constraint}
-
-\vspace{3mm}
-\noindent
-\begin{lem} (Lifetime Budget Constraint) For any linear ODE 
-	\begin{equation*}
-		\frac{dy}{dt} = r(t) y(t) + x(t)
-	\end{equation*}
-	we have the integration result 
-	\begin{equation*}
-		y(T)  = y(0) e^{\int_0^T r(s) ds} +  \int_0^T e^{\int_t^T r(s) ds }  x(t) dt.
-	\end{equation*}
-	
-\end{lem}
-\vspace{8mm}
-\begin{proof}
-	Consider any ODE
-	\begin{equation*}
-		\frac{dy}{dt} = r(t) y(t) + x(t).
-	\end{equation*}
-	Using an integrating factor approach, we have 
-	\begin{equation*}
-		e^{\int -r(s) ds} \frac{dy}{dt} - e^{\int -r(s) ds}  r(t) y(t) = e^{\int -r(s) ds} x(t).
-	\end{equation*}
-	The LHS can then be written as a product rule, so that 
-	\begin{equation*}
-		\frac{d}{dt} \bigg( y(t) e^{\int -r(s) ds} \bigg) =  \frac{dy}{dt} e^{\int -r(s) ds}  + y(t) e^{\int -r(s) ds} \frac{d}{dt} \bigg( \int -r(s) ds \bigg)  = e^{\int -r(s) ds} x(t).
-	\end{equation*}
-	The last derivative follows from the fundamental theorem of calculus for indefinite integrals. 
-	
-	Alternatively, since I know that I will work on the definite time horizon $t \in [0,T]$, I can choose a slightly different integrating factor: I can write $u(t) = e^{- \int_0^t r(s) ds}$, so 
-	\begin{equation*}
-		e^{\int_0^t -r(s) ds} \frac{dy}{dt} - e^{\int_0^t -r(s) ds}  r(t) y(t) = e^{\int_0^t -r(s) ds} x(t).
-	\end{equation*}
-	Using Leibniz rule, I have 
-	\begin{equation*}
-		\frac{d}{dt} \bigg( y(t) e^{\int_0^t -r(s) ds} \bigg) = \frac{dy}{dt}  e^{\int_0^t -r(s) ds} + y(t) e^{\int_0^t -r(s) ds} \frac{d}{dt} \bigg( \int_0^t -r(s) ds \bigg) =  \frac{dy}{dt}  e^{\int_0^t -r(s) ds} - y(t) e^{\int_0^t -r(s) ds} r(t).
-	\end{equation*}
-	Now, I have 
-	\begin{equation*}
-		\frac{d}{dt} \bigg( y(t) u(t) \bigg) = u(t) x(t).
-	\end{equation*}
-	Finally, this implies 
-	\begin{equation*}
-		y(T) u(T) - y(0) u(0) = \int_0^T u(t) x(t),
-	\end{equation*}
-	or, noting $u(0) = 1$, 
-	\begin{equation*}
-		y(T) e^{- \int_0^T r(s) ds} = y(0) +  \int_0^T e^{- \int_0^t r(s) ds} x(t) dt.
-	\end{equation*}
-	Rearranging, 
-	\begin{equation*}
-		y(T)  = y(0) e^{\int_0^T r(s) ds} +  \int_0^T e^{\int_t^T r(s) ds }  x(t) dt.
-	\end{equation*}
-\end{proof}
+Aggregate prices follow a deterministic process, $\bm{r} = \{r_t\}$ and $\bm{y} = \{y_t\}$. Finally, the household starts with an initial wealth position $a_0$, and wealth is the only state variable. 
 
 
 \begin{enumerate}
-\item [(a)] Use this result to characterize the initial lifetime wealth $W$ of the household. We have $W = W(a_0, \bm{r}, \bm{w})$. 
-\end{enumerate}
+\item [(a)] Derive the household's lifetime budget constraint. Characterize the household's ``initial lifetime wealth'' $W$. Argue that $W = \mathcal W(a_0, \bm{r}, \bm{y})$, i.e., initial lifetime wealth is a function of initial wealth $a_0$, as well as the paths of real interest rates $\{r_t\}$ and income $\{y_t\}$. 
 
 
-\vspace{5mm}
-\noindent
-It will be a useful exercise to characterize the response of initial lifetime wealth $dW$ to a general perturbation of this economy, $\{da_0, d \bm r, d \bm w\}$. We have:
+\item [(b)] it will be a useful exercise to characterize the response of lifetime wealth $dW$ to a general perturbation of this economy. In other words, consider a perturbation that leads to changes in the households initial wealth, as well as interest rates and income $\{da_0, d \bm r, d \bm y\}$. Under such a perturbation, lifetime wealth changes 
 \begin{equation*}
-	dW = W_{a_0} da_0 + W_{\bm r} d \bm{r} + W_{ \bm w} d \bm w. 
+	dW = \mathcal W_{a_0} da_0 + \int_0^\infty \mathcal W_{r_t} d r_t dt + \int_0^\infty \mathcal W_{y_t} d y_t dt, 
 \end{equation*}
+where $\mathcal W_x = \frac{\partial \mathcal W}{\partial x}$. Work out the derivatives $\mathcal W_{a_0}$, $\mathcal W_{r_t}$ and $\mathcal W_{y_t}$ and interpret.
 
-
-\begin{enumerate}
-\item [(b)] Work out each of these derivatives ($ W_{a_0}$, $W_{\bm r}$ and $W_{ \bm w}$) and interpret 
-\end{enumerate}
-
-
-\vspace{5mm}
-\noindent
-\textbf{Step \#2: Euler equation }
-
-\begin{enumerate}
-\item [(c)] Use the HJB to derive the euler equation
+\item [(c)] Write down the HJB associated with the household problem. Use it to derive the Euler equation
 \begin{equation*}
 	\frac{dV_a}{V_a} = \frac{du_c}{u_c} =  (\rho - r_t) dt. 
 \end{equation*}
 
-\item [(d)] In this setting, where $dr_t$ and $dw_t$ are entirely deterministic, the Euler equation is of course also a deterministic equation. Let $R_{s,t}=e^{-\int_s^t r_s ds}$. Now show that the continuous-time Euler equation in this simple setting without uncertainty between two dates $t > s$ is given by
+\item [(d)] In this setting, where $\{r_t\}$ and $\{y_t\}$ are entirely deterministic, the Euler equation is of course also a deterministic equation. Let $R_{s,t} = e^{-\int_s^t r_s ds}$. Now show that the Euler equation implies a relationship between marginal utility at any two dates $t > s$ given by
 \begin{equation*}
 	u_c(c_s) = e^{- \rho (t-s)} R_{s,t} u_c(c_t). 
 \end{equation*}
@@ -343,48 +269,22 @@ It will be a useful exercise to characterize the response of initial lifetime we
 \begin{equation*}
 	c_t = c_0 \bigg[ e^{- \rho t} R_{0,t} \bigg]^\frac{1}{\gamma} .
 \end{equation*}
+Interpret this equation. 
 
-\end{enumerate}
-%\vspace{3mm}
-%\noindent
-%In particular, as long as households remain unconstrained I can express consumption at time $t$ in terms of the consumption choice at any other date. In particular, 
-%\begin{equation*}
-	%c_t = (u_c)^{-1} \bigg[ u_c(c_0) \frac{1 }{e^{-\rho t}R_{0,t}} \bigg].
-%\end{equation*}
-%Now the only thing I need to be really careful about is whether I want preference parameters (other than $\rho$) to be time-varying. That is, do I want $u_t = u(c_t)$, or $u_t = u(t, c_t)$? If I decide that preferences are only a function of consumption but otherwise constant, then so is $u_c$ and 
-%\begin{equation*}
-	%c_t = c_0 (u_c)^{-1} \bigg[ \frac{1 }{e^{-\rho t}R_{0,t}} \bigg].
-%\end{equation*}
-%In particular, under CRRA where $u_c = c^{-\gamma}$, I get 
-%\begin{equation*}
-	%c_t = c_0 \bigg[ e^{- \rho t} R_{0,t} \bigg]^\frac{1}{\gamma} .
-%\end{equation*}
-
-
-\vspace{5mm}
-\paragraph{Step \#3: MPC}
-All that is left for to do is put together the lifetime budget constraint with the Euler equation, and then take a derivative. To that end, define the household's MPC as 
-\begin{equation*}
-	\text{MPC}_{0,t} = \frac{\partial c_t}{\partial a_0} = \frac{\partial c_t}{\partial W}.
-\end{equation*}
-This definition of course captures the intuition that the household experiences a marginal change in assets (or wealth or unearned income) in period $0$, and then changes his path of consumption expenditures $\{ c_t\}$ accordingly. 
-
-\begin{enumerate}
-\item [(f)] Using the lifetime budget and the consumption policy function show
+\item [(f)] Using the lifetime budget constraint and the consumption policy function, show that 
 \begin{align*}
-	W &= c_0 \int_0^\infty e^{- \frac{\rho}{\gamma} t} R_{0,t}^\frac{1-\gamma}{\gamma} dt \\
+	W &= c_0 \int_0^\infty e^{- \frac{\rho}{\gamma} t} R_{0,t}^\frac{1-\gamma}{\gamma} dt.
 \end{align*}
+Interpret this condition. 
 
-\item [(g)] To get started with a simple case, assume that $r_t = r$ is constant. Then 
+\item [(g)] Finally, we will characterize the household's marginal propensity to consume (MPC). For simplicity, consider the simple case with $r_t = r$ constant. Define 
 \begin{equation*}
-	R_{0,t} = e^{\int_0^t r ds } = e^{ r t}.
+	\text{MPC}_{s, t} = \frac{\partial c_t}{\partial y_s}. 
 \end{equation*}
-Let $\kappa =- \frac{1}{\gamma} \big[ \rho - (1-\gamma) r \big] $. Now show that the MPC in this setting is constant and given by
-\begin{equation*}
-	\text{MPC} = \kappa
-\end{equation*}
+This object characterizes the household's behavioral consumption response at date $t$ to a marginal change in (unearned) income at date $s$. We refer to $\text{MPC}_{s, t}$ as the household's \textit{intertemporal MPC} or iMPC. Notice that $R_{0, t} = e^{\int_0^t r ds } = e^{ r t}$. Solve for $\text{MPC}_{s, t}$ and interpret, considering both cases $s < t$ and $t \geq s$. 
 
 \end{enumerate}
+
 
 
 
@@ -395,73 +295,24 @@ Let $\kappa =- \frac{1}{\gamma} \big[ \rho - (1-\gamma) r \big] $. Now show that
 
 We now solve an analytically tractable variant of a household's consumption-savings problem when facing stochastic returns on savings. The key to making this tractable is to assume that the household faces no borrowing constraint.
 
-% We now solve a version of the ``buffer stock model'', in which an agent  income fluctuations problem in continuous time. In discrete time, the problem is as follows:
 
-% \paragraph{Discrete time.} The canonical buffer stock model in discrete-time is a variant of the life-cycle model of consumption featuring idiosyncratic income risk. A household's preferences are given by 
-% \begin{equation}
-% 	\sum_{t=0}^\infty \beta^t u(c_t),
-% \end{equation}
-% and the critical assumption is that $\beta R = 1$, where $\beta$ is the household's discount parameter and $R$ is the gross interest rate. In a model without uncertainty, this assumption would imply a constant consumption profile over time.
-% 
-% The household's budget constraint is encoded in its evolution of wealth, given by 
-% \begin{equation}
-% 	a_{t+1} = R(y_t + a_t - c_t),
-% \end{equation}
-% where $y_t \sim^{iid} F$ is an income shock that is independent and identically distributed over time. We may furthermore assume that agents face an exogenously determined, uniform borrowing constraint, $a_t \geq \underline{a}$, that is tighter than the natural borrowing constraint. 
-% 
-% The recursive problem of the household can then be written using the Bellman equation
-% \begin{equation}
-% 	v(a_t) = \max_{c_t} u(c_t) + \beta E_t[v(a_{t+1})],
-% \end{equation}
-% subject to 
-% \begin{align*}
-% 	a_{t+1} &= R(a_t + y_t - c_t) \\
-% 	a_{t} \geq 0.
-% \end{align*}
-
-
-% \textbf{Continuous time without borrowing constraint.} 
 Time is continuous. The evolution of wealth is given by 
 \begin{equation*}
-	da_t = (ra_t - c_t) dt + \sigma dB_t,
+	da_t = (r a_t - c_t)dt + \sigma a_t dB,
 \end{equation*}
-where $B_t$ is standard Brownian motion. (Recall this is the continuous time analog to adding iid. shocks to the household's wealth evolution in discrete time.) We assume that the household is not subject to a borrowing constraint, so $a_t$ can go negative. 
+where $B_t$ is standard Brownian motion. We assume that the household is not subject to a borrowing constraint, so $a_t$ can go negative. 
 
 
 \begin{enumerate}[(a)]
-\item Write the generator for the stochastic process of wealth. Use it to derive the HJB:
+\item Write the generator for the stochastic process of wealth. 
+
+\item Use it to derive the HJB:
 \begin{equation*}
-	\rho v(a) = \max_c \bigg\{ u(c) + v'(a) [ra - c] + \frac{1}{2} v''(a) \sigma^2 \bigg\}
+	\rho v(a) = \max_c \bigg\{ u(c) + v'(a)[ra -c] + \frac{\sigma^2}{2} a^2 v''(a) \bigg\}. 
 \end{equation*}
 Why is there no $t$ subscript on $v(a)$? What kind of differential equation is this? Why is it not a PDE?
 
-\item Show we have the following HJB envelope condition 
-\begin{equation*}
-	(\rho - r) v'(a) = v''(a) [ra - c(a)] + \frac{1}{2} v'''(a) \sigma^2.
-\end{equation*}
-
-\item Assume that preferences are log, with $u(c) = \log c$. Show the HJB satisfies (take FOC, differentiate FOC wrt a and integrate FOC)
-\begin{equation*}
-	\rho \kappa + \frac{\rho}{c'(a)} \log c(a) = \log c(a) + \frac{r a}{c(a)} - 1 - \frac{\sigma^2}{2} \frac{c'(a)}{c(a)^2}.
-\end{equation*}
-\end{enumerate}
-
-
-\vspace{5mm}
-\noindent
- We can see immediately that the $c(a)^2$ term in the denominator on the RHS is going to make solving for a policy function $c$ very difficult. In your own research, your first attempt will often not work out. So you would arrive at this expression, and conclude that you won't be able to solve for the policy function in closed form. But after staring at the expression for a while, you may also realize that there is a simple fix that will come to the rescue: Consider an alternative wealth evolution equation given by 
- \begin{equation*}
-	 da_t = (r a_t - c_t)dt + \sigma a_t dB.
- \end{equation*}
-
-
-\begin{enumerate} 
-\item [(d)] Show the HJB becomes 
-\begin{equation*}
-	\rho v(a) = u(c(a)) + v'(a)[ra -c(a)] + \frac{\sigma^2}{2} a^2 v''(a). 
-\end{equation*}
-
-\item [(e)] Guess that the policy function is linear in wealth (because of log), in particular: $c(a_t) = \rho a_t$. And show: 
+\item Guess that the policy function is linear in wealth (because of log), in particular: $c(a) = \rho a$. And show: 
 \begin{align*}
 	v(a) &= \frac{1}{\rho} \log(\rho a) + \frac{r - \rho}{\rho^2} - \frac{\sigma^2}{2\rho^2}.
 \end{align*} 
@@ -554,7 +405,11 @@ Show $$\pi_{t+1}^E = \gamma \sigma_{C,E}$$ where $\sigma_{C,E}$ is the covarianc
 \vspace{5mm}
 \section*{Problem 6: Brunnermeier-Sannikov (2014)}
 
-In this problem, we work through a simple variant of the seminal Brunnermeier and Sannikov (2014, AER) paper. This problem is difficult, and it will bring together many of the tools we have built up so far. It will combine a model of intertemporal consumption-savings with a model of investment (similar to Tobin's Q) and portfolio choice.
+
+This is the most challenging problem you will encounter in this course. Consider it optional, but I would encourage you to give it a try. 
+
+
+In this problem, you will work through a simple variant of the seminal Brunnermeier and Sannikov (2014, AER) paper. This problem brings together many of the tools we have learned and topics we have discussed. It combines a model of intertemporal consumption-savings with a model of investment (similar to Tobin's Q) and portfolio choice.
 
 
 Consider an agent (household) that can consume, save and invest in a risky asset. Denote by $\{ D_t \}_{t \geq 0}$ the \textit{dividend stream} and by $\{ Q_t \}_{t \geq 0}$ the price of the asset. Assume that the asset price evolves according to 
@@ -631,9 +486,10 @@ After solving for $\iota = \iota(Q)$, this return is exogenous from the perspect
 \end{enumerate}
 
 
-\paragraph{Recursive representation.} We denote the agent's individual states by $(n, z)$. But notice that the agent also faces time-varying prices (macroeconomic aggregates) like $Q_t$. To make our lives simple, we make the following assumption: Suppose there is a scalar stochastic process $X_t$ that fully summarizes the aggregate state of the macroeconomy. This means that we can represent all other prices as functions of it, i.e., 
+\paragraph{Recursive representation.} 
+We denote the agent's individual states by $(n, z)$. But notice that the agent also faces time-varying prices (macroeconomic aggregates) like $Q_t$. To make our lives simple, we make the following assumption: Suppose there is a scalar stochastic process $X_t$ that fully summarizes the aggregate state of the macroeconomy. This means that we can represent all other prices as functions of it, i.e., 
 \begin{equation*}
-	r_t = r(\Gamma_t), \hspace{5mm}	D_t = D(\Gamma_t), \hspace{5mm}	Q_t = Q(\Gamma_t).
+	r_t = r(X_t), \hspace{5mm}	D_t = D(X_t), \hspace{5mm}	Q_t = Q(X_t).
 \end{equation*}
 We refer to $X_t$ as the \textit{aggregtate state of the economy}. And let's assume that it follows a simple diffusion process given by
 \begin{equation*}
@@ -648,7 +504,7 @@ This now allows us to write the household problem recursively with $X$ as an ext
 	\rho V(n, z, X) = \max_{c, \theta} \bigg\{& u(c) + V_n \Big[ rn + \theta n (\mu_R - r) + wz - c \Big] + \frac{1}{2} V_{nn} (\theta n \sigma_R)^2 + V_z \mu_z + \frac{1}{2} V_{zz} \sigma_z^2 \\
 	&+ V_{n X} \theta n \sigma_R \sigma + V_X \mu + \frac{1}{2} \sigma^2 V_{X} \bigg\},
 \end{align*}
-where you can assume that $\mathbb{E}(dW dB) = 0$. This means that households' earnings risk is uncorrelated with the aggregate state $\Gamma$. This assumption is at odds with the data! But it simplifies the HJB here. (Why?)
+where you can assume that $\mathbb{E}(dW dB) = 0$. This means that households' earnings risk is uncorrelated with the aggregate state $X$. This assumption is at odds with the data! But it simplifies the HJB here. (Why?)
 
 \item [(f)] Derive the first-order conditions for consumption and portfolio choice. 
 
@@ -692,10 +548,143 @@ Relate this expression to our discussion of \textit{precautionary savings} in cl
 
 
 
+\vspace{3mm}
+\noindent
+\begin{lem} (Lifetime Budget Constraint) For any linear ODE 
+	\begin{equation*}
+		\frac{dy}{dt} = r(t) y(t) + x(t)
+	\end{equation*}
+	we have the integration result 
+	\begin{equation*}
+		y(T)  = y(0) e^{\int_0^T r(s) ds} +  \int_0^T e^{\int_t^T r(s) ds }  x(t) dt.
+	\end{equation*}
+	
+\end{lem}
+\vspace{8mm}
+\begin{proof}
+	Consider any ODE
+	\begin{equation*}
+		\frac{dy}{dt} = r(t) y(t) + x(t).
+	\end{equation*}
+	Using an integrating factor approach, we have 
+	\begin{equation*}
+		e^{\int -r(s) ds} \frac{dy}{dt} - e^{\int -r(s) ds}  r(t) y(t) = e^{\int -r(s) ds} x(t).
+	\end{equation*}
+	The LHS can then be written as a product rule, so that 
+	\begin{equation*}
+		\frac{d}{dt} \bigg( y(t) e^{\int -r(s) ds} \bigg) =  \frac{dy}{dt} e^{\int -r(s) ds}  + y(t) e^{\int -r(s) ds} \frac{d}{dt} \bigg( \int -r(s) ds \bigg)  = e^{\int -r(s) ds} x(t).
+	\end{equation*}
+	The last derivative follows from the fundamental theorem of calculus for indefinite integrals. 
+	
+	Alternatively, since I know that I will work on the definite time horizon $t \in [0,T]$, I can choose a slightly different integrating factor: I can write $u(t) = e^{- \int_0^t r(s) ds}$, so 
+	\begin{equation*}
+		e^{\int_0^t -r(s) ds} \frac{dy}{dt} - e^{\int_0^t -r(s) ds}  r(t) y(t) = e^{\int_0^t -r(s) ds} x(t).
+	\end{equation*}
+	Using Leibniz rule, I have 
+	\begin{equation*}
+		\frac{d}{dt} \bigg( y(t) e^{\int_0^t -r(s) ds} \bigg) = \frac{dy}{dt}  e^{\int_0^t -r(s) ds} + y(t) e^{\int_0^t -r(s) ds} \frac{d}{dt} \bigg( \int_0^t -r(s) ds \bigg) =  \frac{dy}{dt}  e^{\int_0^t -r(s) ds} - y(t) e^{\int_0^t -r(s) ds} r(t).
+	\end{equation*}
+	Now, I have 
+	\begin{equation*}
+		\frac{d}{dt} \bigg( y(t) u(t) \bigg) = u(t) x(t).
+	\end{equation*}
+	Finally, this implies 
+	\begin{equation*}
+		y(T) u(T) - y(0) u(0) = \int_0^T u(t) x(t),
+	\end{equation*}
+	or, noting $u(0) = 1$, 
+	\begin{equation*}
+		y(T) e^{- \int_0^T r(s) ds} = y(0) +  \int_0^T e^{- \int_0^t r(s) ds} x(t) dt.
+	\end{equation*}
+	Rearranging, 
+	\begin{equation*}
+		y(T)  = y(0) e^{\int_0^T r(s) ds} +  \int_0^T e^{\int_t^T r(s) ds }  x(t) dt.
+	\end{equation*}
+\end{proof}
 
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\vspace{5mm}
+\section*{Problem 4: Consumption-savings with uncertain wealth dynamics}
+
+We now solve an analytically tractable variant of a household's consumption-savings problem when facing stochastic returns on savings. The key to making this tractable is to assume that the household faces no borrowing constraint.
+
+% We now solve a version of the ``buffer stock model'', in which an agent  income fluctuations problem in continuous time. In discrete time, the problem is as follows:
+
+% \paragraph{Discrete time.} The canonical buffer stock model in discrete-time is a variant of the life-cycle model of consumption featuring idiosyncratic income risk. A household's preferences are given by 
+% \begin{equation}
+% 	\sum_{t=0}^\infty \beta^t u(c_t),
+% \end{equation}
+% and the critical assumption is that $\beta R = 1$, where $\beta$ is the household's discount parameter and $R$ is the gross interest rate. In a model without uncertainty, this assumption would imply a constant consumption profile over time.
+% 
+% The household's budget constraint is encoded in its evolution of wealth, given by 
+% \begin{equation}
+% 	a_{t+1} = R(y_t + a_t - c_t),
+% \end{equation}
+% where $y_t \sim^{iid} F$ is an income shock that is independent and identically distributed over time. We may furthermore assume that agents face an exogenously determined, uniform borrowing constraint, $a_t \geq \underline{a}$, that is tighter than the natural borrowing constraint. 
+% 
+% The recursive problem of the household can then be written using the Bellman equation
+% \begin{equation}
+% 	v(a_t) = \max_{c_t} u(c_t) + \beta E_t[v(a_{t+1})],
+% \end{equation}
+% subject to 
+% \begin{align*}
+% 	a_{t+1} &= R(a_t + y_t - c_t) \\
+% 	a_{t} \geq 0.
+% \end{align*}
+
+
+% \textbf{Continuous time without borrowing constraint.} 
+Time is continuous. The evolution of wealth is given by 
+\begin{equation*}
+	da_t = (ra_t - c_t) dt + \sigma dB_t,
+\end{equation*}
+where $B_t$ is standard Brownian motion. (Recall this is the continuous time analog to adding iid. shocks to the household's wealth evolution in discrete time.) We assume that the household is not subject to a borrowing constraint, so $a_t$ can go negative. 
+
+
+\begin{enumerate}[(a)]
+\item Write the generator for the stochastic process of wealth. Use it to derive the HJB:
+\begin{equation*}
+	\rho v(a) = \max_c \bigg\{ u(c) + v'(a) [ra - c] + \frac{1}{2} v''(a) \sigma^2 \bigg\}
+\end{equation*}
+Why is there no $t$ subscript on $v(a)$? What kind of differential equation is this? Why is it not a PDE?
+
+\item Show we have the following HJB envelope condition 
+\begin{equation*}
+	(\rho - r) v'(a) = v''(a) [ra - c(a)] + \frac{1}{2} v'''(a) \sigma^2.
+\end{equation*}
+
+\item Assume that preferences are log, with $u(c) = \log c$. Show the HJB satisfies (take FOC, differentiate FOC wrt a and integrate FOC)
+\begin{equation*}
+	\rho \kappa + \frac{\rho}{c'(a)} \log c(a) = \log c(a) + \frac{r a}{c(a)} - 1 - \frac{\sigma^2}{2} \frac{c'(a)}{c(a)^2}.
+\end{equation*}
+\end{enumerate}
+
+
+\vspace{5mm}
+\noindent
+ We can see immediately that the $c(a)^2$ term in the denominator on the RHS is going to make solving for a policy function $c$ very difficult. In your own research, your first attempt will often not work out. So you would arrive at this expression, and conclude that you won't be able to solve for the policy function in closed form. But after staring at the expression for a while, you may also realize that there is a simple fix that will come to the rescue: Consider an alternative wealth evolution equation given by 
+ \begin{equation*}
+	 da_t = (r a_t - c_t)dt + \sigma a_t dB.
+ \end{equation*}
+
+
+\begin{enumerate} 
+\item [(d)] Show the HJB becomes 
+\begin{equation*}
+	\rho v(a) = u(c(a)) + v'(a)[ra -c(a)] + \frac{\sigma^2}{2} a^2 v''(a). 
+\end{equation*}
+
+\item [(e)] Guess that the policy function is linear in wealth (because of log), in particular: $c(a_t) = \rho a_t$. And show: 
+\begin{align*}
+	v(a) &= \frac{1}{\rho} \log(\rho a) + \frac{r - \rho}{\rho^2} - \frac{\sigma^2}{2\rho^2}.
+\end{align*} 
+Interpret this expression. What is the household's MPC in this model? 
+
+\end{enumerate}
 
 
 

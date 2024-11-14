@@ -231,8 +231,12 @@ solution to the Bellman Equation works.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\vspace{5mm}
+%\vspace{5mm}
+\newpage
 \section*{Problem 3: Consumption-savings with deterministic income fluctuations}
+
+Our next problem is similar to the previous ``eat-the-pie'' problem, but we allow for labor income as well as a time-varying interest rate. We also switch to continuous time. 
+
 
 Consider a household with preferences 
 \begin{equation*}
@@ -240,44 +244,56 @@ Consider a household with preferences
 \end{equation*}
 There is no uncertainty. The household budget constraint is given by
 \begin{equation*}
-	da_t = r_t a_t + y_t - c_t. 
+	da_t = r_t a_t + y_t - c_t, 
 \end{equation*}
-Aggregate prices follow a deterministic process, $\bm{r} = \{r_t\}$ and $\bm{y} = \{y_t\}$. Finally, the household starts with an initial wealth position $a_0$, and wealth is the only state variable. 
+given an initial wealth $a_0$. The household's labor income process $\{y_t\}$ as well as the interest rate path $\{r_t\}$ are deterministic. The household takes these as exogenously given. Consequently, the household does not face any uncertainty in this problem. 
 
 
-\begin{enumerate}
-\item [(a)] Derive the household's lifetime budget constraint. Characterize the household's ``initial lifetime wealth'' $W$. Argue that $W = \mathcal W(a_0, \bm{r}, \bm{y})$, i.e., initial lifetime wealth is a function of initial wealth $a_0$, as well as the paths of real interest rates $\{r_t\}$ and income $\{y_t\}$. 
+\begin{enumerate}[(a)]
+\item We start by characterizing what's known as the ``natural borrowing limit''. In particular, assume that the household may accumulate debt, $a_t < 0$, as long as the household repays ``in the long run''. (Formally, imagine there is a lender that is risk-neutral with respect to when she is repaid by the household, as long as the household does not default outright.) Intuitively, argue that there must exist a lower bound $\underline a^\text{nat}$ such that the household must respect $a_t \geq \underline a^\text{nat}$. Derive this so-called natural borrowing limit in terms of $\{r_t\}$ and $\{y_t\}$.  
 
 
-\item [(b)] it will be a useful exercise to characterize the response of lifetime wealth $dW$ to a general perturbation of this economy. In other words, consider a perturbation that leads to changes in the households initial wealth, as well as interest rates and income $\{da_0, d \bm r, d \bm y\}$. Under such a perturbation, lifetime wealth changes 
+\item Assuming that the household may accumulate debt as long as she respects her natural borrowing limit, derive the household's lifetime budget constraint. Denote the household's ``initial lifetime wealth'' by $W$ and show that we can write it as a function $W = \mathcal W(a_0, \{r_t\}, \{y_t\})$. That is, initial lifetime wealth is a function of initial wealth $a_0$, as well as the paths of real interest rates $\{r_t\}$ and income $\{y_t\}$. 
+
+
+\item It will be a useful exercise to characterize the response of lifetime wealth $dW$ to a general perturbation of this economy. In other words, consider a perturbation that leads to changes in the households initial wealth, as well as interest rates and income $\{da_0, \{d r_t\}, \{d y_t\}\}$. Under such a perturbation, lifetime wealth changes 
 \begin{equation*}
 	dW = \mathcal W_{a_0} da_0 + \int_0^\infty \mathcal W_{r_t} d r_t dt + \int_0^\infty \mathcal W_{y_t} d y_t dt, 
 \end{equation*}
 where $\mathcal W_x = \frac{\partial \mathcal W}{\partial x}$. Work out the derivatives $\mathcal W_{a_0}$, $\mathcal W_{r_t}$ and $\mathcal W_{y_t}$ and interpret.
 
-\item [(c)] Write down the HJB associated with the household problem. Use it to derive the Euler equation
-\begin{equation*}
-	\frac{dV_a}{V_a} = \frac{du_c}{u_c} =  (\rho - r_t) dt. 
-\end{equation*}
 
-\item [(d)] In this setting, where $\{r_t\}$ and $\{y_t\}$ are entirely deterministic, the Euler equation is of course also a deterministic equation. Let $R_{s,t} = e^{-\int_s^t r_s ds}$. Now show that the Euler equation implies a relationship between marginal utility at any two dates $t > s$ given by
+\item Characterize a recursive representation of the household's problem using $a$ as the only state variable. That is, write down an HJB for the value function $V_t(a)$. What does the dependence on calendar time $t$ capture?
+
+
+\item Use the HJB, the first-order condition, and the envelope condition to derive an Euler equation of the form  
+\begin{equation*}
+	\frac{du_{c, t}}{u_{c, t}} =  (\rho - r_t) dt 
+\end{equation*}
+where $u_{c, t} \equiv u'(c_t)$. 
+
+
+\item In this setting, where $\{r_t\}$ and $\{y_t\}$ are entirely deterministic, the Euler equation is of course also a deterministic equation. Let $R_{s,t} = e^{-\int_s^t r_s ds}$. Now show that the Euler equation implies a relationship between marginal utility at any two dates $t > s$ given by
 \begin{equation*}
 	u_c(c_s) = e^{- \rho (t-s)} R_{s,t} u_c(c_t). 
 \end{equation*}
 
-\item [(e)] Show that with CRRA utility we can write consumption as 
+
+\item Show that with CRRA utility we can write consumption as 
 \begin{equation*}
 	c_t = c_0 \bigg[ e^{- \rho t} R_{0,t} \bigg]^\frac{1}{\gamma} .
 \end{equation*}
 Interpret this equation. 
 
-\item [(f)] Using the lifetime budget constraint and the consumption policy function, show that 
+
+\item Using the lifetime budget constraint and the consumption policy function, show that 
 \begin{align*}
 	W &= c_0 \int_0^\infty e^{- \frac{\rho}{\gamma} t} R_{0,t}^\frac{1-\gamma}{\gamma} dt.
 \end{align*}
 Interpret this condition. 
 
-\item [(g)] Finally, we will characterize the household's marginal propensity to consume (MPC). For simplicity, consider the simple case with $r_t = r$ constant. Define 
+
+\item Finally, we will characterize the household's marginal propensity to consume (MPC). For simplicity, consider the simple case with $r_t = r$ constant. Define 
 \begin{equation*}
 	\text{MPC}_{s, t} = \frac{\partial c_t}{\partial y_s}. 
 \end{equation*}
@@ -290,10 +306,11 @@ This object characterizes the household's behavioral consumption response at dat
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\vspace{5mm}
+%\vspace{5mm}
+\newpage
 \section*{Problem 4: Consumption-savings with uncertain wealth dynamics}
 
-We now solve an analytically tractable variant of a household's consumption-savings problem when facing stochastic returns on savings. The key to making this tractable is to assume that the household faces no borrowing constraint.
+We now introduce uncertainty and solve an analytically tractable variant of the household consumption-savings problem with stochastic returns on savings. The key to making this tractable is to assume that the household faces no borrowing constraint.
 
 
 Time is continuous. The evolution of wealth is given by 

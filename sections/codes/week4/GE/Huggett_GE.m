@@ -109,8 +109,6 @@ aa = [a, a]; % I*2 matrix
                V = v0;
             end
 
-%% 4. VALUE FUNCTION ITERATION
-
 for n=1:p.maxit
 
     % 4-1. Compute the derivative of the value function 
@@ -118,8 +116,8 @@ for n=1:p.maxit
     dVb = Db*V;
 
     % 4-2. Boundary conditions
-    dVb(1,:) = p.mu(zz(1,:) + p.r.*aa(1,:)); % a>=a_min is enforced (borrowing constraint)
-    dVf(end,:) = p.mu(zz(end,:) + p.r.*aa(end,:)); % a<=a_max is enforced which helps stability of the algorithm
+    dVb(1,:) = p.mu(zz(1,:) + r.*aa(1,:)); % a>=a_min is enforced (borrowing constraint)
+    dVf(end,:) = p.mu(zz(end,:) + r.*aa(end,:)); % a<=a_max is enforced which helps stability of the algorithm
 
     I_concave = dVb > dVf; % indicator whether value function is concave (problems arise if this is not the case)
 
@@ -128,14 +126,14 @@ for n=1:p.maxit
     cb = p.inv_mu(dVb);
     
     % 4-4. Compute the optimal savings
-    sf = zz + p.r.*aa - cf;
-    sb = zz + p.r.*aa - cb;
+    sf = zz + r.*aa - cf;
+    sb = zz + r.*aa - cb;
 
     % 4-5. Upwind scheme
     If = sf>0;
     Ib = sb<0;
     I0 = 1-If-Ib;
-    dV0 = p.mu(zz + p.r.*aa); % If sf<=0<=sb, set s=0
+    dV0 = p.mu(zz + r.*aa); % If sf<=0<=sb, set s=0
 
     dV_upwind = If.*dVf + Ib.*dVb + I0.*dV0;
 
@@ -175,8 +173,6 @@ for n=1:p.maxit
        break
     end
 end
-
-toc;
 
 %% 5. KF EQUATION
 
@@ -220,12 +216,12 @@ gg = reshape(g_stacked, p.I, 2);
             disp('Excess Supply')
             % Decrease r whenever S(r)>0
             r_max = r;
-            r = 0.5*(r_min+r_max);
+            r = (r_min+r_max)/2;
         elseif S(nr)<-p.tol_S
             disp('Excess Demand')
             % Increase r whenever S(r)<0
             r_min = r;
-            r = 0.5*(r_min+r_max);
+            r = (r_min+r_max)/2;
         elseif abs(S(nr))<p.tol_S
             disp('Equilibrium Found, Interest rate =')
             disp(r)

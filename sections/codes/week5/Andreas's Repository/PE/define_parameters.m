@@ -1,4 +1,4 @@
-function p = define_parameters_GE()
+function p = define_parameters()
 
 % This function defines the parameters needed for the Huggett_GE.m script
 
@@ -10,9 +10,8 @@ function p = define_parameters_GE()
     % Discount rate
     p.rho = 0.05;
     
-    %% WE NO LONGER ASSUME EXOGENOUS INTEREST RATE
     % Exogenous interest rate
-    % p.r = 0.035;
+    p.r = 0.035;
     
     % Income process
     p.z_u = 0.1;
@@ -20,8 +19,8 @@ function p = define_parameters_GE()
     p.zz = [p.z_u, p.z_e];
 
     % Probability density   
-    p.lambda_u = 1.2;
-    p.lambda_e = 1.2;
+    p.lambda_u = 1.5;
+    p.lambda_e = 1;
     p.lambda = [p.lambda_u, p.lambda_e];
     
 %% Economic Functions
@@ -40,14 +39,11 @@ function p = define_parameters_GE()
     p.amin = -0.15;
     p.amax = 5;
 
-    % The number of grid points
-    p.I = 1000;
+    % % The number of grid points
+    % p.I = 1000;
 
-    % % WE NO LONGER CONSTRUCT GRID POINTS FOR INTEREST RATES
-    % % Grid parameters for interest rate
-    % p.rmin = -0.05;
-    % p.rmax = 0.04;
-    % p.Ir = 20;
+    % The level of sparse grid
+    p.l = 10;
 
 %% Tuning parameters
 
@@ -63,9 +59,9 @@ function p = define_parameters_GE()
     %% TUNING PARAMETERS FOR INTEREST RATE ITERATION
     
     % The maximum number of interest rate iterations
-    p.Nr = 1000;
+    p.Nr = 40;
 
     % Tolerance for interest rate iterations
-    p.tol_S = 10^(-5);
+    p.tol_S = 10^(-6);
 
 end

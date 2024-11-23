@@ -177,7 +177,7 @@ We defined the generator of a stochastic process in class. The generator is extr
 \item Consider the wealth and income processes 
 \begin{align*}
 	da_t &= (ra_t + y_t - c_t)dt + \sigma dB_t \\
-	dy_t &= \theta (\bar y - y_t) dt + \nu W_t
+	dy_t &= \theta (\bar y - y_t) dt + \nu dW_t
 \end{align*}
 where $B_t$ and $W_t$ are independent standard Brownian motion. Write down the generator $\mathcal A$ for the two-dimensional process
 \begin{equation*}
@@ -216,7 +216,7 @@ Consider a household whose lifetime utility is given by
 \end{equation*}
 The household makes consumption-savings decisions facing the budget constraint 
 \begin{equation*}
-	da_t = r a_t + y_t - c_t.
+	da_t = (r a_t + y_t - c_t)dt.
 \end{equation*}
 Here, $y_t$ is the household's income process. We cannot perfectly forecast our future income, so we will assume that $y_t$ is a stochastic process. Below, you will be asked to write down the HJB associated with this problem for the two canonical models of income uncertainty.
 
